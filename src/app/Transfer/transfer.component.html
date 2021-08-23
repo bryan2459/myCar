@@ -1,0 +1,97 @@
+<div style="float: left; width:100%;">
+  <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" novalidate>
+      <mat-card>
+         <div class="myDiv2">
+           <mat-label>Transfer Ownership Car </mat-label>
+         </div>
+
+
+      <!--Owner-->
+      <p>
+        <mat-form-field class="example-full-width">
+            <mat-label for="owner">Owner: </mat-label>
+
+            <input matInput type="text" id="owner" name="owner" formControlName="owner">
+        </mat-form-field>
+      </p>
+      <div
+      *ngIf="!owner?.valid && (owner?.dirty || owner?.touched)">
+       <div [hidden]="!owner.errors.required">
+          Owner is required
+       </div>
+       <div [hidden]="!owner.errors.minlength">
+          Min Length is 3
+       </div>
+      </div>
+
+      <!--Owner-->
+
+      <!--location-->
+      <p>
+        <mat-form-field class="example-full-width">
+            <mat-label for="car">Car id: </mat-label>
+
+            <input matInput type="text" id="car" name="car" formControlName="car">
+        </mat-form-field>
+      </p>
+      <div
+      *ngIf="!car?.valid && (car?.dirty || car?.touched)">
+       <div [hidden]="!car.errors.required">
+          Car id is required
+       </div>
+       <div [hidden]="!car.errors.minlength">
+          Min Length is 1
+       </div>
+      </div>
+      <!--location-->
+      <p>
+          <mat-form-field class="example-full-width">
+              <mat-label for="car">Rego: </mat-label>
+
+              <input matInput type="text" id="rego" name="rego" formControlName="rego">
+          </mat-form-field>
+        </p>
+        <div
+        *ngIf="!rego?.valid && (rego?.dirty || rego?.touched)">
+         <div [hidden]="!rego.errors.required">
+            Rego is required
+         </div>
+         <div [hidden]="!rego.errors.minlength">
+            Min Length is 1
+         </div>
+        </div>
+      <!--country-->
+
+      <!--country-->
+                  <h4>New Owner:</h4>
+                  <mat-form-field appearance="fill">
+                    <mat-label>newOwner</mat-label>
+                    <mat-select formControlName="newOwner">
+                      <mat-option *ngFor="let c of ownerList" [value]="c.name">
+                        {{c.name}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+                  <div *ngIf="!newOwner.valid && (newOwner.dirty || newOwner.touched)">
+                    <div [hidden]="!newOwner.errors.required">
+                      Please provide an owner who be the new owner
+                    </div>
+                  </div>
+
+
+                      <button  mat-raised-button color="accent" type="submit" [disabled]="!contactForm.valid">Submit</button>
+
+                      <p>
+                        <mat-label for="result">Result: </mat-label>
+                        <mat-form-field>
+                          <textarea matInput
+                          type="text" id="result" name="result" formControlName="result" readonly></textarea>
+
+                        </mat-form-field>
+                      </p>
+
+      </mat-card>
+      </form>
+    </div>
+

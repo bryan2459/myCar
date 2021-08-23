@@ -1,0 +1,148 @@
+<div style="float: left; width:100%;">
+<form [formGroup]="contactForm" (ngSubmit)="onSubmit()" novalidate>
+  <mat-card>
+     <div class="myDiv">
+       <mat-label>New Car Issue</mat-label>
+     </div>
+              <h4>Issued to:</h4>
+              <mat-form-field appearance="fill">
+                <mat-label>Owner</mat-label>
+                <mat-select formControlName="member">
+                  <mat-option *ngFor="let c of memberList" [value]="c.name">
+                    {{c.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <div *ngIf="!member.valid && ( member.dirty || member.touched)">
+                <div [hidden]="!currency.errors.required">
+                  a member is required
+                </div>
+              </div>
+  <!--CarMake-->
+              <h4>Car Make:</h4>
+              <mat-form-field appearance="fill">
+                <mat-label>car make</mat-label>
+                <mat-select formControlName="maker">
+                  <mat-option *ngFor="let c of makerList" [value]="c.name">
+                    {{c.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <div *ngIf="!maker.valid && (maker.dirty || maker.touched)">
+                <div [hidden]="!maker.errors.required">
+                  car maker is required
+                </div>
+              </div>
+
+  <!--CarMake-->
+
+  <!--Rego-->
+  <p>
+    <mat-form-field class="example-full-width">
+        <mat-label for="rego">Rego: </mat-label>
+
+        <input matInput type="text" id="rego" name="rego" formControlName="rego">
+    </mat-form-field>
+  </p>
+  <div
+  *ngIf="!rego?.valid && (rego?.dirty || rego?.touched)">
+   <div [hidden]="!rego.errors.required">
+      Rego field is required
+   </div>
+   <div [hidden]="!rego.errors.minlength">
+      Min Length is 3
+   </div>
+  </div>
+
+  <!--Rego-->
+
+  <!--location-->
+  <p>
+    <mat-form-field class="example-full-width">
+        <mat-label for="loc">Location: </mat-label>
+
+        <input matInput type="text" id="loc" name="loc" formControlName="loc">
+    </mat-form-field>
+  </p>
+  <div
+  *ngIf="!loc?.valid && (loc?.dirty || loc?.touched)">
+   <div [hidden]="!loc.errors.required">
+      Location field is required
+   </div>
+   <div [hidden]="!loc.errors.minlength">
+      Min Length is 1
+   </div>
+  </div>
+  <!--location-->
+  <!--country-->
+  <h4>Country:</h4>
+  <mat-form-field appearance="fill">
+    <mat-label>country</mat-label>
+    <mat-select formControlName="country">
+      <mat-option *ngFor="let c of countryList" [value]="c.name">
+        {{c.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div *ngIf="!country.valid && (country.dirty || country.touched)">
+    <div [hidden]="!country.errors.required">
+      country is required
+    </div>
+  </div>
+  <!--country-->
+              <h4>Currency:</h4>
+              <mat-form-field appearance="fill">
+                <mat-label>currency</mat-label>
+                <mat-select formControlName="currency">
+                  <mat-option *ngFor="let c of currencyList" [value]="c.name">
+                    {{c.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <div *ngIf="!currency.valid && (currency.dirty || currency.touched)">
+                <div [hidden]="!currency.errors.required">
+                  currency is required
+                </div>
+              </div>
+
+
+
+              <p>
+                <mat-form-field class="example-full-width">
+                    <mat-label for="cash">Amount: </mat-label>
+
+                    <input matInput type="text" id="cash" name="cash" formControlName="cash">
+                </mat-form-field>
+            </p>
+            <div
+              *ngIf="!cash?.valid && (cash?.dirty || cash?.touched)">
+               <div [hidden]="!cash.errors.required">
+                  Cash field is required
+               </div>
+               <div [hidden]="!cash.errors.minlength">
+                  Min Length is 10
+               </div>
+            </div>
+
+
+
+
+                  <button  mat-raised-button color="accent" type="submit" [disabled]="!contactForm.valid">Submit</button>
+                  <p>
+                    <mat-label for="result">Result: </mat-label>
+                    <mat-form-field>
+                      <textarea matInput
+                      type="text" id="result" name="result" formControlName="result" readonly></textarea>
+
+                    </mat-form-field>
+                  </p>
+
+
+  </mat-card>
+  </form>
+</div>
+

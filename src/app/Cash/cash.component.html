@@ -1,0 +1,73 @@
+<div style="float: left; width:60%;">
+
+  <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" novalidate>
+  <mat-card>
+     <div class="myDiv">
+       <mat-label>Cash Transactions</mat-label>
+     </div>
+              <h4>Member:</h4>
+              <mat-form-field appearance="fill">
+                <mat-label>Member</mat-label>
+                <mat-select formControlName="member">
+                  <mat-option *ngFor="let c of memberList" [value]="c.name">
+                    {{c.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <div *ngIf="!member.valid && ( member.dirty || member.touched)">
+                <div [hidden]="!member.errors.required">
+                  a member is required
+                </div>
+              </div>
+
+
+           <h4 for="query">Transaction Type: </h4>
+
+           <mat-radio-group aria-label="Select an option" formControlName="query" >
+              <h4><mat-radio-button value="balance" name="query" >Cash Balance</mat-radio-button> </h4>
+              <h4><mat-radio-button value="state" name="query" >Cash State</mat-radio-button> </h4>
+              <h4><mat-radio-button value="issueCash" name="query" >Issue Cash</mat-radio-button> </h4>
+          </mat-radio-group>
+
+        <div *ngIf="!query.valid && (query.dirty || query.touched)">
+          <div [hidden]="!query.errors.required">
+            query selection is required
+          </div>
+        </div>
+
+
+              <p>
+                  <button  mat-raised-button color="accent" type="submit" [disabled]="!contactForm.valid">Submit</button>
+              </p>
+
+
+  </mat-card>
+  </form>
+
+
+  </div>
+  <div style="float: right; width:40%;">
+
+      <div class="myDiv2">
+          <mat-label>Cash Balance Query Result</mat-label>
+        </div>
+      <mat-accordion multi="true" *ngIf="cashs.length > 0">
+
+          <mat-expansion-panel *ngFor="let cash of cashs">
+            <mat-expansion-panel-header>
+             {{ cash.token }}
+            </mat-expansion-panel-header>
+            <h4>Amount:</h4>
+            <p>{{ cash.quantity | currency: cash.token }}</p>
+
+          </mat-expansion-panel>
+        </mat-accordion>
+
+        <p class="info-text mat-body-1" *ngIf="cashs.length <= 0">Query not run yet!</p>
+
+
+
+  </div>
+
+

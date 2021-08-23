@@ -1,0 +1,96 @@
+<div style="float: left; width:50%;">
+
+  <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" novalidate>
+  <mat-card>
+     <div class="myDiv">
+       <mat-label>My Car Query</mat-label>
+     </div>
+              <h4>Member:</h4>
+              <mat-form-field appearance="fill">
+                <mat-label>Member</mat-label>
+                <mat-select formControlName="member">
+                  <mat-option *ngFor="let c of memberList" [value]="c.name">
+                    {{c.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <div *ngIf="!member.valid && ( member.dirty || member.touched)">
+                <div [hidden]="!member.errors.required">
+                  a member is required
+                </div>
+              </div>
+
+
+
+
+              <p>
+                  <button  mat-raised-button color="accent" type="submit" [disabled]="!contactForm.valid">Submit</button>
+              </p>
+
+
+  </mat-card>
+  </form>
+
+
+  </div>
+  <div style="float: right; width:50%;">
+
+      <div class="myDiv2">
+          <mat-label>My Car Query Result</mat-label>
+        </div>
+      <mat-accordion multi="true" *ngIf="cars.length > 0">
+
+          <mat-expansion-panel *ngFor="let car of cars">
+            <mat-expansion-panel-header>
+             {{ car.rego }}
+            </mat-expansion-panel-header>
+            <h4>Id:</h4>
+            <p>{{ car.linearId}}</p>
+            <h4>Owner:</h4>
+            <p>{{ car.owner}}</p>
+            <h4>Rego:</h4>
+            <p>{{ car.rego  }}</p>
+            <h4>Make:</h4>
+            <p>{{ car.carMake  }}</p>
+            <h4>Value:</h4>
+            <p>{{ car.amount}}</p>
+            <h4>Paid:</h4>
+            <p>{{ car.paid}}</p>
+            <h4>Previous Owner:</h4>
+            <p>{{ car.issuer}}</p>
+            <mat-action-row>
+
+
+              <a mat-button color="warn" [routerLink]="['/transfer', car.linearId,car.rego,car.owner]">Transfer</a>
+              <a mat-button color="success" [routerLink]="['/settle', car.linearId,car.rego,car.owner]">Settle</a>
+             <!--
+              <button mat-button color="warn" (click)="onDelete(post.id)">DELETE</button>
+              [routerLink]="['/edit', car.id]"
+             -->
+
+            </mat-action-row>
+
+
+
+          </mat-expansion-panel>
+        </mat-accordion>
+
+        <p class="info-text mat-body-1" *ngIf="cars.length <= 0">Query no data return!</p>
+
+
+
+  </div>
+ <!--
+<a [routerLink]="['/articles', id, 'edit-translation', translation_id]"> link to another component</a>
+
+ -->
+ <!--
+ <main>
+    <router-outlet></router-outlet>
+  </main>
+
+ -->
+
+
+
