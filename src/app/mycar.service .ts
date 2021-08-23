@@ -37,6 +37,10 @@ export class MycarService {
    //from issuecar.component.ts
    private carUpdated = new Subject<Car[]>();
    //from issuecar.component.ts
+   //server variables
+   serverPut = "http://localhost:10009/api/v1/issue-car?carMake=";
+   serverGet = "http://localhost:";
+   //server variables
 
 
 
@@ -65,7 +69,7 @@ export class MycarService {
      //http://localhost:10015/api/v1/transfer-car?id=fa1615a5-d401-460d-801b-bfcef1d4e337&party=O=Sunil,L=Brisbane,C=AU
      this.http
      .get<{ message: string; carstemp: any }>(
-          "http://localhost:" + portn +
+          this.serverGet + portn +
           "/api/v1/transfer-car?id=" + car +
           "&party=" + newOwner,
             {responseType : 'text' as 'json'}
@@ -106,7 +110,7 @@ export class MycarService {
           const array = owner.split(",");
          // console.log("names +" +array[0]);
           const name = array[0].replace('O=','');
-          console.log("new name- "+ name );
+          console.log("Settle name- "+ name );
           var portn ='';
           if (name == 'Bryan') { portn = '10015'}
           if (name == 'Sunil') { portn = '10012'}
@@ -114,7 +118,7 @@ export class MycarService {
           console.log("port = "+ portn);
           this.http
             .get<{ message: string; carstemp: any }>(
-                 "http://localhost:" + portn +
+                 this.serverGet + portn +
                  "/api/v1/settle-car-payment?id=" + car +
                  "&amount=" + cash +
                  "&currency=" + currency,
@@ -160,7 +164,7 @@ export class MycarService {
      this.http
       .get<{ message: string; carstemp: any }>(
           // "http://localhost:10009/api/v1/self-issue-cash?amount=500&currency=AUD"
-          "http://localhost:" + member +
+          this.serverGet + member +
           "/api/v1/my-cars"
 
 
@@ -256,7 +260,7 @@ export class MycarService {
      this.http
       .get<{ message: string; casher: any }>(
           // "http://localhost:10009/api/v1/self-issue-cash?amount=500&currency=AUD"
-          "http://localhost:" + member +
+           this.serverGet + member +
           "/api/v1/" +
            queryString
 
@@ -313,7 +317,7 @@ export class MycarService {
      this.http
       .get<{ message: string; msgs: any }>(
           // "http://localhost:10009/api/v1/self-issue-cash?amount=500&currency=AUD"
-          "http://localhost:" + member +
+          this.serverGet + member +
           "/api/v1/self-issue-cash?amount=" +
           cash +
           "&currency=" + currency,
@@ -377,7 +381,7 @@ export class MycarService {
   //this.http
   //.put("http://localhost:3000/api/members/" + id, car)
   this.http
-  .put("http://localhost:10009/api/v1/issue-car?carMake="+
+  .put(this.serverPut +
          maker +
          "&rego=" +
          rego   +
